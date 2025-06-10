@@ -1,0 +1,246 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Fondo general */
+html, body {
+  background-color: #FFF6E5;
+  color: #5A5A5A;
+  padding: 10px;
+}
+
+/* Cabecera general */
+header {
+  background-color: #AB886D;
+  padding: 20px 50px;
+  border-radius: 24px;
+  margin-bottom: 30px;
+}
+
+/* Contenedor cabecera */
+.cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fdf6f2;
+  flex-wrap: wrap;
+}
+
+/* Título */
+.cabecera h1 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Menú toggle (hamburguesa) */
+.menu-toggle {
+  display: none;
+  background: none;
+  
+  border: none;
+  font-size: 26px;
+  color: #fdf6f2;
+  cursor: pointer;
+}
+
+/* Navegación */
+.menu {
+  display: flex;
+}
+
+.menu ul {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+}
+
+/* Enlaces */
+.menu a {
+  text-decoration: none;
+  color: #fdf6f2;
+  font-weight: 500;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Subrayado animado */
+.menu a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #FFEAC5;
+  transition: width 0.3s ease;
+}
+
+.menu a:hover::after {
+  width: 100%;
+}
+
+.menu a:hover {
+  color: #FFEAC5;
+}
+
+/* Responsive Header*/
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .menu {
+    width: 100%;
+    display: none;
+    margin-top: 16px;
+  }
+
+  .menu.active {
+    display: block;
+  }
+
+  .menu ul {
+    text-align: center;
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 0;
+  }
+
+  .cabecera h1 {
+    font-size: 24px;
+  }
+}
+
+
+/*Comienzan estilos para la seccion de la descripcion   */
+
+#descripcion {
+  
+  
+  margin: 90px ;
+  
+}
+
+/* Contenedor flex para imagen y texto */
+.contenido-descripcion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* Imagen a la izquierda */
+.img-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.img-container img {
+  max-width: 100%;
+  width: 900px; /* Tamaño fijo pero controlado */
+  height: auto;
+  border-radius: 5px;
+
+}
+
+/* Texto a la derecha */
+.texto-descripcion {
+  flex: 1;
+  max-width: 500px;
+  text-align: left;
+}
+
+.texto-descripcion h2 {
+  font-size: 30px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.texto-descripcion p {
+  font-size: 20px;
+  line-height: 1.6;
+  color: #5A5A5A;
+  margin-bottom: 20px;
+}
+
+.texto-descripcion span {
+  font-weight: 600;
+  color: #AB886D;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+
+  #descripcion {
+    margin: 40px;
+  }
+
+  .contenido-descripcion {
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+    .img-container {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .img-container img {
+    width: 60%;
+    max-width: 300px;
+  }
+
+  .texto-descripcion {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+
+
+/* Contenido  */
+
+.texto-uno{
+  margin: 40px ;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.texto-uno h2{
+  color: black;
+  text-align: center;
+}
+
+#Contenido {
+  border: 1px solid black;
+  margin: 40px;
+  padding: 20px
+}
+
+.cabecera-contenido{
+  text-align: center;
+}
+
+.cabecera-contenido p{
+  font-size: 20px;
+}
+
+.cabecera-contenido span{
+  font-weight: 600;
+  color: #AB886D;
+}
+
+
+

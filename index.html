@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="estilos.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Agrega esto en la etiqueta <head> de tu HTML -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <title>Nombre del bebe</title>
+  </head>
+  <body>
+    
+    <header>
+      <div class="cabecera">
+        <h1><i class="fa-solid fa-baby"></i> Baby Shower</h1>
+
+        <!-- Botón hamburguesa -->
+        <button class="menu-toggle" aria-label="Abrir menú">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <!-- Navegación -->
+        <nav class="menu">
+          <ul>
+            <li><a href="#Contenido">Contenido</a></li>
+            <li><a href="#asistencia">Asistencia</a></li>
+            <li><a href="#ubicacion">Ubicación</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section id="descripcion">
+      <div class="contenido-descripcion">
+        <div class="img-container">
+          <img src="family.webp" alt="Ilustración de familia" />
+
+        </div>
+        <div class="texto-descripcion">
+          <h2>¡Estamos esperando un bebé!</h2>
+          <p>
+            Estamos emocionados de celebrar la llegada de nuestro pequeño
+            <span>Matias Gael</span>. Aquí encontrarás toda la información
+            necesaria para unirte a nosotros en este día especial.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="texto-uno">
+        <h2>Recomendaciones</h2>
+      </div>
+
+    <section id="Contenido">
+      <div class="cabecera-contenido">
+        <p>Estimado invitado, nos tomamos la libertad de hacer una invitacion digital por lo que debera seguir algunas <span>Recomendaciones</span> para la celebracion por la llegada de nuestro bebe</p>
+      </div>
+    </section>
+
+    <section></section>
+
+    <script>
+      const toggleBtn = document.querySelector(".menu-toggle");
+      const menu = document.querySelector(".menu");
+
+      toggleBtn.addEventListener("click", () => {
+        menu.classList.toggle("active");
+      });
+    </script>
+  </body>
+</html>
