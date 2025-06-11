@@ -124,10 +124,7 @@ header {
 /*Comienzan estilos para la seccion de la descripcion   */
 
 #descripcion {
-  
-  
   margin: 90px ;
-  
 }
 
 /* Contenedor flex para imagen y texto */
@@ -219,7 +216,7 @@ header {
 }
 
 .texto-uno h2{
-  color: black;
+  color: #333;
   text-align: center;
 }
 
@@ -241,5 +238,81 @@ header {
   color: #AB886D;
 }
 
+#section-uno {
+  margin: 40px;
+  flex-direction: row;
+  column-gap: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
 
+/* SUBSECCIÓN I  */
+.subsection-uno {
+  flex: 1;
+  padding: 40px;
+}
+
+.subsection-uno i{
+  align-items: center;
+}
+
+.subsection-uno h2{
+  color: #333;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.subsection-uno p{
+  font-size: 18px;
+}
+
+/* SUBSECCIÓN II*/
+.subsection-dos {
+  flex: 1;
+  padding: 40px;
+}
+
+.subsection-dos h2{
+  color: #333;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.subsection-dos p{
+  font-size: 18px;
+}
+
+
+/* SUBSECCIÓN III */
+.subsection-tres {
+  flex: 1;
+  padding: 40px;
+}
+
+.subsection-tres h2{
+  color: #333;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.subsection-tres p{
+  font-size: 18px;
+}
+
+
+/* RESPONSIVE PARA LA SECCION UNO */
+@media (max-width: 768px) {
+  #section-uno {
+    flex-direction: column;
+  }
+
+  .subsection-uno, .subsection-dos, .subsection-tres {
+    text-align: center;
+  }
+
+  .subsection-uno p, .subsection-dos p, .subsection-tres p {
+    font-size: 18px;
+  }
+}
