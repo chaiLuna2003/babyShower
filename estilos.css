@@ -262,10 +262,12 @@ header {
   color: #333;
   text-align: center;
   padding-bottom: 20px;
+  
 }
 
 .subsection-uno p{
   font-size: 18px;
+    
 }
 
 /* SUBSECCIÓN II*/
@@ -274,10 +276,13 @@ header {
   padding: 40px;
 }
 
+
+
 .subsection-dos h2{
   color: #333;
   text-align: center;
   padding-bottom: 20px;
+
 }
 
 .subsection-dos p{
