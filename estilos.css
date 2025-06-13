@@ -11,6 +11,7 @@ html, body {
   background-color: #FFF6E5;
   color: #5A5A5A;
   padding: 10px;
+  scroll-behavior: smooth;
 }
 
 /* Cabecera general */
@@ -238,36 +239,28 @@ header {
   color: #AB886D;
 }
 
+/*Secciones */
+
 #section-uno {
   margin: 40px;
+  display: flex;
   flex-direction: row;
   column-gap: 20px;
-  display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
-
-/* SUBSECCIÓN I  */
-.subsection-uno {
+.subsection-uno,
+.subsection-dos,
+.subsection-tres {
   flex: 1;
   padding: 40px;
-}
-
-.subsection-uno i{
-  align-items: center;
-}
-
-.subsection-uno h2{
-  color: #333;
   text-align: center;
   padding-bottom: 20px;
-  
 }
 
 .subsection-uno p{
   font-size: 18px;
-    
 }
 
 /* SUBSECCIÓN II*/
@@ -276,33 +269,15 @@ header {
   padding: 40px;
 }
 
-
-
 .subsection-dos h2{
   color: #333;
-  text-align: center;
   padding-bottom: 20px;
 
 }
 
-.subsection-dos p{
-  font-size: 18px;
-}
-
-
-/* SUBSECCIÓN III */
-.subsection-tres {
-  flex: 1;
-  padding: 40px;
-}
-
-.subsection-tres h2{
-  color: #333;
-  text-align: center;
-  padding-bottom: 20px;
-}
-
-.subsection-tres p{
+.subsection-uno p,
+.subsection-dos p,
+.subsection-tres p {
   font-size: 18px;
 }
 
@@ -320,4 +295,18 @@ header {
   .subsection-uno p, .subsection-dos p, .subsection-tres p {
     font-size: 18px;
   }
+}
+
+
+/*ASISTENCIA SECCION*/
+
+#asistencia{
+  margin: 40px;
+  padding: 20px;
+}
+
+.section-asistencia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
