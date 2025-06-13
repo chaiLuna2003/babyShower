@@ -253,6 +253,7 @@ header {
 .subsection-uno,
 .subsection-dos,
 .subsection-tres {
+  
   flex: 1;
   padding: 40px;
   text-align: center;
@@ -274,11 +275,18 @@ header {
   padding-bottom: 20px;
 }
 
-.subsection-uno p,
-.subsection-dos p,
-.subsection-tres p {
-  font-size: 18px;
+.subsection-uno p{
+  text-align: left;
 }
+
+.subsection-dos p{
+  font-size: 18px;
+
+}
+
+.subsection-tres p{
+  text-align: right;
+} 
 
 
 /* RESPONSIVE PARA LA SECCION UNO */
@@ -293,6 +301,7 @@ header {
 
   .subsection-uno p, .subsection-dos p, .subsection-tres p {
     font-size: 18px;
+    text-align: center;
   }
 }
 
