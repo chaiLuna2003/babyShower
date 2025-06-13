@@ -256,23 +256,22 @@ header {
   flex: 1;
   padding: 40px;
   text-align: center;
-  padding-bottom: 20px;
 }
 
-.subsection-uno p{
-  font-size: 18px;
+.subsection-uno i,
+.subsection-dos i,
+.subsection-tres i {
+  font-size: 40px;
+  color: #777;
+  margin-bottom: 15px;
+  display: block;
 }
 
-/* SUBSECCIÓN II*/
-.subsection-dos {
-  flex: 1;
-  padding: 40px;
-}
-
-.subsection-dos h2{
+.subsection-uno h2,
+.subsection-dos h2,
+.subsection-tres h2 {
   color: #333;
   padding-bottom: 20px;
-
 }
 
 .subsection-uno p,
