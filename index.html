@@ -99,15 +99,35 @@
   </section>
 
   <section id="asistencia">
-    <div class="section-asistencia">
-      <h1>Asistencia</h1>
-      <div>
-        
-      </div>
+  <div class="section-asistencia">
+    <h1>Asistencia</h1>
+    <p>Con ayuda de este formulario puedes confirmar tu asistencia para que nosotros podamos saber si asistes a la celebracion de <span>
+      Matias Gael
+    </span> Para mas información acerca de como llenar tu asistencia, por favor da click al boton </p>
+
+    <button>Ayuda</button>
+
+    <div class="formulario">
+      <form action="#" method="post">
+        <div class="form-group">
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" name="nombre" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="mensaje">Mensaje:</label>
+          <textarea id="mensaje" name="mensaje" class="form-control" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <script src="script.js"></script>
+  <script src="form.js"></script>
 </body>
 
 </html>
