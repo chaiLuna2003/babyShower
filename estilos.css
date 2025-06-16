@@ -337,10 +337,7 @@ header {
   color: #AB886D;
 }
 
-.section-asistencia button{
-  width: 40%;
-  margin-bottom: 50px;
-}
+
 
 .form-group {
     margin-bottom: 40px;
@@ -373,7 +370,10 @@ header {
     outline: none;
   }
 
-  button {
+  
+
+   .button {
+    
     display: block;
     width: 100%;
     padding: 12px;
@@ -384,8 +384,9 @@ header {
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.2s ease;
-  }
+ }
 
-  button:hover {
+  .button :hover {
     background-color: #0056b3;
   }
+   
