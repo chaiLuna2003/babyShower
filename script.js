@@ -6,3 +6,9 @@
       });
 
 
+const toggleBtns = document.querySelector(".boton");
+const menus = document.querySelector(".modal");
+
+toggleBtns.addEventListener("click", ()=>{
+  menus.classList.toggle("active");
+});

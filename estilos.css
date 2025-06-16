@@ -372,21 +372,27 @@ header {
 
   
 
-   .button {
+  .boton {
     
     display: block;
-    width: 100%;
+    width: 40%;
     padding: 12px;
-    background-color: #007bff;
-    color: white;
+    margin-bottom:  20px;
+    background-color: #B0DB9C;
+    color: #ffffff;
+    font-size: 90px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
  }
 
-  .button :hover {
-    background-color: #0056b3;
-  }
+ 
+
+ .boton:hover{
+  background-color: #193a5c;
+  transition: background-color 0.9s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+ }
    
