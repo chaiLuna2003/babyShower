@@ -101,17 +101,27 @@
   <section id="asistencia">
   <div class="section-asistencia">
     <h1>Asistencia</h1>
-    <p>Con ayuda de este formulario puedes confirmar tu asistencia para que nosotros podamos saber si asistes a la celebracion de <span>
-      Matias Gael
-    </span> Para mas información acerca de como llenar tu asistencia, por favor da click al boton </p>
+    <p>
+      Con ayuda de este formulario puedes confirmar tu asistencia para que nosotros podamos saber si asistes a la celebración de 
+      <span>Matías Gael</span>. Para más información acerca de cómo llenar tu asistencia, por favor da click al botón.
+    </p>
 
-    <button class="boton"><i class="fa-solid fa-info"></i> Ayuda</button>
+    <button type="button" class="boton" id="abrirModal">
+      <i class="fa-solid fa-info"></i> Ayuda
+    </button>
 
-    <div class="modal">
+    <!-- Modal -->
+    <div class="modal" id="modalAyuda">
+      <div class="modal-contenido">
+        <span class="cerrar" id="cerrarModal">&times;</span>
+        <h2>¿Cómo llenar tu asistencia?</h2>
+        <p>Solo llena tu nombre y, si gustas, deja un mensaje bonito ❤️. Luego da clic en "Enviar". ¡Así sabremos que vienes!</p>
+      </div>
     </div>
 
+    <!-- Formulario -->
     <div class="formulario">
-      <form action="#" method="post">
+      <form action="javascript:void(0);" method="post">
         <div class="form-group">
           <label for="nombre">Nombre:</label>
           <input type="text" id="nombre" name="nombre" class="form-control" required>
@@ -119,7 +129,7 @@
 
         <div class="form-group">
           <label for="mensaje">Mensaje:</label>
-          <textarea id="mensaje" name="mensaje" class="form-control" rows="4"></textarea>
+          <textarea id="mensaje" name="mensaje" class="form-control" rows="2" placeholder="Escribe tu mensaje..."></textarea>
         </div>
 
         <button type="submit" class="btn-primary">Enviar</button>
@@ -129,8 +139,10 @@
 </section>
 
 
+
   <script src="script.js"></script>
-  <script src="form.js"></script>
+  <script src="modal.js"></script>
+  
 </body>
 
 </html>
