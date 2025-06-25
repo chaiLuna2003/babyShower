@@ -37,6 +37,7 @@
             <li><a href="#Contenido">Contenido</a></li>
             <li><a href="#asistencia">Asistencia</a></li>
             <li><a href="#ubicacion">Ubicación</a></li>
+            <li><a href="#votacion">Votación</a></li>
           </ul>
         </nav>
       </div>
@@ -128,8 +129,10 @@
             <span class="cerrar" id="cerrarModal">&times;</span>
             <h2>¿Cómo llenar tu asistencia?</h2>
             <p>
-              Introduce el nombre tuyo y de tus acompañantes en el siguiente
-              formulario como se muestra a continuación
+              Selecciona a que familia perteneces
+              <span>(paterna o materna) </span>, escribe los
+              <span> nombres</span> de los invitados que asistirán y un
+              <span> mensaje</span> opcional, como se muestra a continuación:
             </p>
             <img
               src="Formulario_exampkle.jpg"
@@ -142,7 +145,6 @@
         <!-- Formulario -->
         <div class="formulario-container">
           <form action="javascript:void(0);" method="post">
-
             <div class="form-group">
               <label for="familia">Familia:</label>
               <select id="familia" name="familia" required>
@@ -175,7 +177,37 @@
       </div>
     </section>
 
+    <section id="votacion">
+  <div class="section-votacion">
+    <h2>¿Niño o Niña?</h2>
+    <p>
+      Vota por tu predicción y ayúdanos a descubrir el misterio 🎀🍼💙.  
+      
+    </p>
+  </div>
+
+  <div class="votacion-container">
+    <!-- Opción: Niña -->
+    <button class="opcion-voto opcion-nina" onclick="votar('Niña')">
+      <h3>Niña</h3>
+      <i class="fa-solid fa-child"></i>
+      <span class="btn-texto">Votar</span>
+    </button>
+
+    <!-- Opción: Niño -->
+    <button class="opcion-voto opcion-nino" onclick="votar('Niño')">
+      <h3>Niño</h3>
+      <i class="fa-solid fa-child-dress"></i>
+      <span class="btn-texto">Votar</span>
+    </button>
+  </div>
+</section>
+
+
+    <section id="Ubicación"></section>
+
     <script src="script.js"></script>
     <script src="modal.js"></script>
+    <script src="votacion.js"></script>
   </body>
 </html>
