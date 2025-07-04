@@ -1,4 +1,19 @@
-  const modal = document.getElementById('modalAyuda');
+  const toggleBtn = document.querySelector(".menu-toggle");
+      const menu = document.querySelector(".menu");
+
+      toggleBtn.addEventListener("click", () => {
+        menu.classList.toggle("active");
+      });
+
+
+const toggleBtns = document.querySelector(".boton");
+const menus = document.querySelector(".modal");
+
+toggleBtns.addEventListener("click", ()=>{
+  menus.classList.toggle("active");
+});
+
+const modal = document.getElementById('modalAyuda');
   const abrir = document.getElementById('abrirModal');
   const cerrar = document.getElementById('cerrarModal');
 

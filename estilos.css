@@ -282,6 +282,7 @@ header {
 @media (max-width: 768px) {
   #section-uno {
     flex-direction: column;
+    
   }
 
   .subsection-uno,
@@ -306,9 +307,11 @@ header {
 }
 
 .section-asistencia {
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto 20px;
 }
 
 .section-asistencia h1 {
@@ -516,17 +519,17 @@ select:focus {
 
 .section-votacion {
   max-width: 800px;
-  margin: 0 auto 40px;
+  margin: 0 auto 20px;
 }
 
 .section-votacion h2 {
-  font-size: 2.5rem;
+  font-size: 30px;
   margin-bottom: 16px;
   color: #333;
 }
 
 .section-votacion p {
-  font-size: 1.2rem;
+  color: #404040;
   color: #000000;
   line-height: 1.6;
 }
@@ -550,6 +553,7 @@ select:focus {
 .opcion-voto {
   flex: 1 1 300px;
   border: 4px solid transparent;
+  background-color: #F3F3E0;
   border-radius: 16px;
   padding: 24px;
   text-align: center;
@@ -565,7 +569,7 @@ select:focus {
 
 .opcion-voto:hover {
   transform: translateY(-6px);
-  border-color: #ccc;
+  border-color: #333446;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
 
@@ -578,8 +582,17 @@ select:focus {
 
 
 .btn-texto {
-  background-color: #a59d84;
-  color: white;
+  background-color: #F7CFD8;
+  color: rgb(0, 0, 0);
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-texto-nino{
+  background-color: #A2D2DF;
+  color: rgb(0, 0, 0);
   padding: 10px 18px;
   border-radius: 8px;
   font-size: 1rem;
@@ -587,7 +600,9 @@ select:focus {
 }
 
 .opcion-voto:hover .btn-texto {
-  background-color: #8e856d;
+  background-color: #F564A9;
 }
 
-
+.opcion-nino:hover .btn-texto-nino {
+  background-color: #0D92F4;
+}
