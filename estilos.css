@@ -534,6 +534,10 @@ select:focus {
   line-height: 1.6;
 }
 
+.section-votacion span{
+  color: #193a5c;
+}
+
 .votacion-container {
   display: flex;
   justify-content: center;
@@ -606,3 +610,5 @@ select:focus {
 .opcion-nino:hover .btn-texto-nino {
   background-color: #0D92F4;
 }
+
+
