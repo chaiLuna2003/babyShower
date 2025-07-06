@@ -144,7 +144,7 @@
 
         <!-- Formulario -->
         <div class="formulario-container">
-          <form action="javascript:void(0);" method="post">
+          <form id="formConfirmacion" action="javascript:void(0);" method="post">
             <div class="form-group">
               <label for="familia">Familia:</label>
               <select id="familia" name="familia" required>
@@ -177,39 +177,93 @@
       </div>
     </section>
 
-  <section id="votacion">
-  <div class="section-votacion">
-    <h2>¿Niño o Niña?</h2>
-    <p>
-      Esta seccion se prepara para la correcta funcion de una dinamica preparada para la celebración de nuestro bebe. Por favor, selecciona una de las opciones a continuación para votar por el nombre del bebé.
-      <br>
-      <span>¡Si crees que el bebe es un varon, trae pañales y si crees que el bebe es una nilña trae toallitas!</span>
-      
-    </p>
-  </div>
+    <section id="votacion">
+      <div class="section-votacion">
+        <h2>¿Niño o Niña?</h2>
+        <p>
+          Esta seccion se prepara para la correcta funcion de una dinamica
+          preparada para la celebración de nuestro bebe. Por favor, selecciona
+          una de las opciones a continuación para votar por el nombre del bebé.
+          <br />
+          <span
+            >¡Si crees que el bebe es un varon trae pañales y si crees que el
+            bebe es una nilña trae toallitas!</span
+          >
+        </p>
+      </div>
 
-  <div class="votacion-container">
-    <!-- Opción: Niña -->
-    <button class="opcion-voto opcion-nina" onclick="votar('Niña')">
-      <h3>Niña</h3>
-      <i class="fa-solid fa-child"></i>
-      <span class="btn-texto">Votar</span>
-    </button>
+      <div class="votacion-container">
+        <!-- Opción: Niña -->
+        <button class="opcion-voto opcion-nina" onclick="votar('Niña')">
+          <h3>Niña</h3>
+          <i class="fa-solid fa-child"></i>
+          <span class="btn-texto">Votar</span>
+        </button>
 
-    <!-- Opción: Niño -->
-    <button class="opcion-voto opcion-nino" onclick="votar('Niño')">
-      <h3>Niño</h3>
-      <i class="fa-solid fa-child-dress"></i>
-      <span class="btn-texto-nino">Votar</span>
-    </button>
-  </div>
-</section>
-
+        <!-- Opción: Niño -->
+        <button class="opcion-voto opcion-nino" onclick="votar('Niño')">
+          <h3>Niño</h3>
+          <i class="fa-solid fa-child-dress"></i>
+          <span class="btn-texto-nino">Votar</span>
+        </button>
+      </div>
+    </section>
 
     <section id="Ubicación"></section>
 
-    <script src="script.js"></script>
+    
     <script src="modal.js"></script>
     <script src="votacion.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+  apiKey: "AIzaSyD-6dbDS0AqUA3D09ciOFqdr9rUdoW21oI",
+  authDomain: "babyshowergam.firebaseapp.com",
+  projectId: "babyshowergam",
+  storageBucket: "babyshowergam.firebasestorage.app",
+  messagingSenderId: "703529239996",
+  appId: "1:703529239996:web:e305fd186149868aac57b9"
+};
+
+ const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+const form = document.getElementById("formConfirmacion");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  // Obtener los valores del formulario
+  const familia = document.getElementById("familia").value;
+  const nombre = document.getElementById("nombre").value;
+  const mensaje = document.getElementById("mensaje").value;
+
+  try {
+    // Guardar en Firestore
+    await addDoc(collection(db, "confirmaciones"), {
+      familia,
+      nombre,
+      mensaje,
+      fecha: new Date().toISOString() // opcional, por orden cronológico
+    });
+
+    alert("Gracias por confirmar 🥳");
+    form.reset();
+  } catch (error) {
+    console.error("Error al guardar en Firestore:", error);
+    alert("Ocurrió un error, intenta de nuevo 😥");
+  }
+});
+
+  
+
+    </script>
   </body>
 </html>
