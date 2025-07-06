@@ -144,7 +144,11 @@
 
         <!-- Formulario -->
         <div class="formulario-container">
-          <form id="formConfirmacion" action="javascript:void(0);" method="post">
+          <form
+            id="formConfirmacion"
+            action="javascript:void(0);"
+            method="post"
+          >
             <div class="form-group">
               <label for="familia">Familia:</label>
               <select id="familia" name="familia" required>
@@ -211,7 +215,20 @@
 
     <section id="Ubicación"></section>
 
-    
+    <footer class="baby-footer">
+      <div class="foter-1">
+        <a href="https://chailuna2003.github.io/babyShower/confirmaciones.html"
+          >Confirmaciones</a>
+      </div>
+      <div class="foter-2">
+        
+      </div>
+      <div class="foter-3">
+        <a href="#">C. Norteña 143, Benito Juárez, 57000 Cdad. Nezahualcóyotl, Méx.</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
     <script src="modal.js"></script>
     <script src="votacion.js"></script>
     <script type="module">
@@ -224,44 +241,43 @@
       } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
       const firebaseConfig = {
-  apiKey: "AIzaSyD-6dbDS0AqUA3D09ciOFqdr9rUdoW21oI",
-  authDomain: "babyshowergam.firebaseapp.com",
-  projectId: "babyshowergam",
-  storageBucket: "babyshowergam.firebasestorage.app",
-  messagingSenderId: "703529239996",
-  appId: "1:703529239996:web:e305fd186149868aac57b9"
-};
+        apiKey: "AIzaSyD-6dbDS0AqUA3D09ciOFqdr9rUdoW21oI",
+        authDomain: "babyshowergam.firebaseapp.com",
+        projectId: "babyshowergam",
+        storageBucket: "babyshowergam.firebasestorage.app",
+        messagingSenderId: "703529239996",
+        appId: "1:703529239996:web:e305fd186149868aac57b9",
+      };
 
- const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
 
-const form = document.getElementById("formConfirmacion");
+      const form = document.getElementById("formConfirmacion");
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-  // Obtener los valores del formulario
-  const familia = document.getElementById("familia").value;
-  const nombre = document.getElementById("nombre").value;
-  const mensaje = document.getElementById("mensaje").value;
+        // Obtener los valores del formulario
+        const familia = document.getElementById("familia").value;
+        const nombre = document.getElementById("nombre").value;
+        const mensaje = document.getElementById("mensaje").value;
 
-  try {
-    // Guardar en Firestore
-    await addDoc(collection(db, "confirmaciones"), {
-      familia,
-      nombre,
-      mensaje,
-      fecha: new Date().toISOString() // opcional, por orden cronológico
-    });
+        try {
+          // Guardar en Firestore
+          await addDoc(collection(db, "confirmaciones"), {
+            familia,
+            nombre,
+            mensaje,
+            fecha: new Date().toISOString(), // opcional, por orden cronológico
+          });
 
-    alert("Gracias por confirmar tu asistencia 🥳");
-    form.reset();
-  } catch (error) {
-    console.error("Error al guardar la confirmacion:", error);
-    alert("Ocurrió un error, intenta de nuevo 😥");
-  }
-}); 
-
+          alert("Gracias por confirmar tu asistencia 🥳");
+          form.reset();
+        } catch (error) {
+          console.error("Error al guardar la confirmacion:", error);
+          alert("Ocurrió un error, intenta de nuevo 😥");
+        }
+      });
     </script>
   </body>
 </html>

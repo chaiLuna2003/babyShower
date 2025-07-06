@@ -610,4 +610,21 @@ select:focus {
   background-color: #0D92F4;
 }
 
+.baby-footer {
+  background: linear-gradient(to right, #ffd9ec, #ffe5f7);
+  padding: 2rem;
+  text-align: center;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  color: #6b3262;  
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  column-gap: 30%;
+  
+}
+
+.baby-footer p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
 
