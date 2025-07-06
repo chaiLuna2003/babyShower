@@ -1,13 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Confirmaciones</title>
-</head>
-<body>
+    <link rel="stylesheet" href="confirmaciones.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <section class="encabezado">
+      <div class="content-encabezado">
+        <h1>Tabla de confirmaciones</h1>
+      </div>
 
-    
-    
-</body>
+      <div class="filtros" style="text-align: center; margin-bottom: 1rem">
+        <button class="filtro-btn" data-familia="todas">Todas</button>
+        <button class="filtro-btn" data-familia="paterna">Paterna</button>
+        <button class="filtro-btn" data-familia="materna">Materna</button>
+      </div>
+    </section>
+
+    <div class="tabla-container">
+      <table id="tablaConfirmaciones">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Familia</th>
+            <th>Nombre(s)</th>
+            <th>Mensaje</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <script type="module">
+      // 🧪 Importa Firebase desde el CDN
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyD-6dbDS0AqUA3D09ciOFqdr9rUdoW21oI",
+        authDomain: "babyshowergam.firebaseapp.com",
+        projectId: "babyshowergam",
+        storageBucket: "babyshowergam.firebasestorage.app",
+        messagingSenderId: "703529239996",
+        appId: "1:703529239996:web:e305fd186149868aac57b9",
+      };
+
+      // 🚀 Inicializar Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // 📄 Referencia a la tabla
+const tablaBody = document.querySelector("#tablaConfirmaciones tbody");
+
+// 🗂️ Aquí guardaremos todos los datos descargados de Firestore
+let datosConfirmaciones = [];
+
+// 📥 Descargar los datos desde Firestore solo una vez
+async function cargarConfirmaciones() {
+  tablaBody.innerHTML = "";
+  datosConfirmaciones = [];
+
+  try {
+    const querySnapshot = await getDocs(collection(db, "confirmaciones"));
+    querySnapshot.forEach((doc) => {
+      datosConfirmaciones.push(doc.data());
+    });
+
+    // Mostramos todos al principio
+    renderizarTabla("todas");
+  } catch (error) {
+    console.error("Error cargando Firestore:", error);
+    alert("No se pudieron cargar las confirmaciones 😓");
+  }
+}
+
+// 🧱 Renderizar tabla según filtro
+function renderizarTabla(familia) {
+  tablaBody.innerHTML = "";
+  let index = 1;
+
+  const datosFiltrados = familia === "todas"
+    ? datosConfirmaciones
+    : datosConfirmaciones.filter(d => d.familia === familia);
+
+  datosFiltrados.forEach((data) => {
+    const fecha = new Date(data.fecha).toLocaleString("es-MX", {
+      dateStyle: "short",
+      timeStyle: "short"
+    });
+
+    const fila = document.createElement("tr");
+    fila.innerHTML = `
+      <td>${index++}</td>
+      <td>${data.familia}</td>
+      <td>${data.nombre}</td>
+      <td>${data.mensaje || ""}</td>
+      <td>${fecha}</td>
+    `;
+    tablaBody.appendChild(fila);
+  });
+}
+
+// 🎯 Detectar clics en los botones de filtro
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("filtro-btn")) {
+    document.querySelectorAll(".filtro-btn").forEach(btn => btn.classList.remove("active"));
+    e.target.classList.add("active");
+
+    const familia = e.target.dataset.familia;
+    renderizarTabla(familia);
+  }
+});
+
+// 🚀 Cargar al inicio
+cargarConfirmaciones();
+
+    </script>
+  </body>
 </html>
