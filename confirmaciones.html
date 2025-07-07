@@ -36,7 +36,7 @@
     </div>
 
     <script type="module">
-      // 🧪 Importa Firebase desde el CDN
+      
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import {
         getFirestore,
@@ -53,17 +53,17 @@
         appId: "1:703529239996:web:e305fd186149868aac57b9",
       };
 
-      // 🚀 Inicializar Firebase
+      
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
 
-      // 📄 Referencia a la tabla
+      
 const tablaBody = document.querySelector("#tablaConfirmaciones tbody");
 
-// 🗂️ Aquí guardaremos todos los datos descargados de Firestore
+
 let datosConfirmaciones = [];
 
-// 📥 Descargar los datos desde Firestore solo una vez
+
 async function cargarConfirmaciones() {
   tablaBody.innerHTML = "";
   datosConfirmaciones = [];
@@ -74,7 +74,7 @@ async function cargarConfirmaciones() {
       datosConfirmaciones.push(doc.data());
     });
 
-    // Mostramos todos al principio
+    
     renderizarTabla("todas");
   } catch (error) {
     console.error("Error cargando Firestore:", error);
@@ -82,7 +82,7 @@ async function cargarConfirmaciones() {
   }
 }
 
-// 🧱 Renderizar tabla según filtro
+
 function renderizarTabla(familia) {
   tablaBody.innerHTML = "";
   let index = 1;
@@ -109,7 +109,7 @@ function renderizarTabla(familia) {
   });
 }
 
-// 🎯 Detectar clics en los botones de filtro
+
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("filtro-btn")) {
     document.querySelectorAll(".filtro-btn").forEach(btn => btn.classList.remove("active"));
@@ -120,7 +120,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// 🚀 Cargar al inicio
+
 cargarConfirmaciones();
 
     </script>
