@@ -520,6 +520,8 @@ select:focus {
 .section-votacion {
   max-width: 800px;
   margin: 0 auto 20px;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 .section-votacion h2 {

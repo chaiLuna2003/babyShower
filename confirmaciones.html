@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Confirmaciones</title>
+    <link rel="icon" href="baby-solid.svg" type="image/x-icon" />
     <link rel="stylesheet" href="confirmaciones.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
     <section class="encabezado">
@@ -17,6 +17,14 @@
         <button class="filtro-btn" data-familia="todas">Todas</button>
         <button class="filtro-btn" data-familia="paterna">Paterna</button>
         <button class="filtro-btn" data-familia="materna">Materna</button>
+      </div>
+      <div style="text-align: center; margin-bottom: 1rem">
+        <input
+          type="text"
+          id="busquedaNombre"
+          placeholder="Buscar por nombre..."
+          class="border rounded p-2 w-60"
+        />
       </div>
     </section>
 
@@ -32,11 +40,11 @@
           </tr>
         </thead>
         <tbody></tbody>
+        <div id="contadorConfirmaciones" class="text-center mt-4 font-bold text-lg"></div>
       </table>
     </div>
 
     <script type="module">
-      
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import {
         getFirestore,
@@ -53,43 +61,42 @@
         appId: "1:703529239996:web:e305fd186149868aac57b9",
       };
 
-      
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
 
-      
-const tablaBody = document.querySelector("#tablaConfirmaciones tbody");
+      const tablaBody = document.querySelector("#tablaConfirmaciones tbody");
+      const inputBusqueda = document.querySelector("#busquedaNombre");
 
+      let datosConfirmaciones = [];
 
-let datosConfirmaciones = [];
+      // Variables para estado activo
+      let filtroActivo = "todas";
+      let textoBusqueda = "";
 
+      async function cargarConfirmaciones() {
+        tablaBody.innerHTML = "";
+        datosConfirmaciones = [];
 
-async function cargarConfirmaciones() {
-  tablaBody.innerHTML = "";
-  datosConfirmaciones = [];
+        try {
+          const querySnapshot = await getDocs(collection(db, "confirmaciones"));
+          querySnapshot.forEach((doc) => {
+            datosConfirmaciones.push(doc.data());
+          });
 
-  try {
-    const querySnapshot = await getDocs(collection(db, "confirmaciones"));
-    querySnapshot.forEach((doc) => {
-      datosConfirmaciones.push(doc.data());
-    });
+          renderizarTabla();
+        } catch (error) {
+          console.error("Error cargando Firestore:", error);
+          alert("No se pudieron cargar las confirmaciones 😓");
+        }
+      }
 
-    
-    renderizarTabla("todas");
-  } catch (error) {
-    console.error("Error cargando Firestore:", error);
-    alert("No se pudieron cargar las confirmaciones 😓");
-  }
-}
-
-
-function renderizarTabla(familia) {
+      function renderizarTabla() {
   tablaBody.innerHTML = "";
   let index = 1;
 
-  const datosFiltrados = familia === "todas"
-    ? datosConfirmaciones
-    : datosConfirmaciones.filter(d => d.familia === familia);
+  const datosFiltrados = datosConfirmaciones
+    .filter(d => filtroActivo === "todas" || d.familia === filtroActivo)
+    .filter(d => d.nombre.toLowerCase().includes(textoBusqueda.toLowerCase()));
 
   datosFiltrados.forEach((data) => {
     const fecha = new Date(data.fecha).toLocaleString("es-MX", {
@@ -107,22 +114,32 @@ function renderizarTabla(familia) {
     `;
     tablaBody.appendChild(fila);
   });
+
+  // Actualizar contador
+  const contadorDiv = document.getElementById("contadorConfirmaciones");
+  contadorDiv.textContent = `Total de confirmaciones: ${datosFiltrados.length}`;
 }
 
 
-document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("filtro-btn")) {
-    document.querySelectorAll(".filtro-btn").forEach(btn => btn.classList.remove("active"));
-    e.target.classList.add("active");
+      // Listener filtro botones
+      document.querySelectorAll(".filtro-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          document
+            .querySelectorAll(".filtro-btn")
+            .forEach((b) => b.classList.remove("active"));
+          e.target.classList.add("active");
+          filtroActivo = e.target.dataset.familia;
+          renderizarTabla();
+        });
+      });
 
-    const familia = e.target.dataset.familia;
-    renderizarTabla(familia);
-  }
-});
+      // Listener búsqueda
+      inputBusqueda.addEventListener("input", (e) => {
+        textoBusqueda = e.target.value;
+        renderizarTabla();
+      });
 
-
-cargarConfirmaciones();
-
+      cargarConfirmaciones();
     </script>
   </body>
 </html>
