@@ -40,106 +40,157 @@
           </tr>
         </thead>
         <tbody></tbody>
-        <div id="contadorConfirmaciones" class="text-center mt-4 font-bold text-lg"></div>
+        <div id="contadorConfirmaciones" class="contador"></div>
+        <div id="paginacion" class="paginacion" style="text-align: center; margin-top: 1rem;"></div>
       </table>
     </div>
 
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-      import {
-        getFirestore,
-        collection,
-        getDocs,
-      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import {
+          getFirestore,
+          collection,
+          getDocs,
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyD-6dbDS0AqUA3D09ciOFqdr9rUdoW21oI",
-        authDomain: "babyshowergam.firebaseapp.com",
-        projectId: "babyshowergam",
-        storageBucket: "babyshowergam.firebasestorage.app",
-        messagingSenderId: "703529239996",
-        appId: "1:703529239996:web:e305fd186149868aac57b9",
-      };
+        const firebaseConfig = {
+          apiKey: "AIzaSyD-6dbDS0AqUA3D09ciOFqdr9rUdoW21oI",
+          authDomain: "babyshowergam.firebaseapp.com",
+          projectId: "babyshowergam",
+          storageBucket: "babyshowergam.firebasestorage.app",
+          messagingSenderId: "703529239996",
+          appId: "1:703529239996:web:e305fd186149868aac57b9",
+        };
 
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-      const tablaBody = document.querySelector("#tablaConfirmaciones tbody");
-      const inputBusqueda = document.querySelector("#busquedaNombre");
+        const tablaBody = document.querySelector("#tablaConfirmaciones tbody");
+        const inputBusqueda = document.querySelector("#busquedaNombre");
 
-      let datosConfirmaciones = [];
+        let datosConfirmaciones = [];
 
-      // Variables para estado activo
-      let filtroActivo = "todas";
-      let textoBusqueda = "";
+        // Variables para estado activo
+        let filtroActivo = "todas";
+        let textoBusqueda = "";
 
-      async function cargarConfirmaciones() {
-        tablaBody.innerHTML = "";
-        datosConfirmaciones = [];
+        async function cargarConfirmaciones() {
+          tablaBody.innerHTML = "";
+          datosConfirmaciones = [];
 
-        try {
-          const querySnapshot = await getDocs(collection(db, "confirmaciones"));
-          querySnapshot.forEach((doc) => {
-            datosConfirmaciones.push(doc.data());
-          });
+          try {
+            const querySnapshot = await getDocs(collection(db, "confirmaciones"));
+            querySnapshot.forEach((doc) => {
+              datosConfirmaciones.push(doc.data());
+            });
 
-          renderizarTabla();
-        } catch (error) {
-          console.error("Error cargando Firestore:", error);
-          alert("No se pudieron cargar las confirmaciones 😓");
+            renderizarTabla();
+          } catch (error) {
+            console.error("Error cargando Firestore:", error);
+            alert("No se pudieron cargar las confirmaciones 😓");
+          }
         }
-      }
 
-      function renderizarTabla() {
-  tablaBody.innerHTML = "";
-  let index = 1;
+  const porPagina = 15;
+  let paginaActual = 1;
 
-  const datosFiltrados = datosConfirmaciones
-    .filter(d => filtroActivo === "todas" || d.familia === filtroActivo)
-    .filter(d => d.nombre.toLowerCase().includes(textoBusqueda.toLowerCase()));
+  function renderizarTabla() {
+    tablaBody.innerHTML = "";
 
-  datosFiltrados.forEach((data) => {
-    const fecha = new Date(data.fecha).toLocaleString("es-MX", {
-      dateStyle: "short",
-      timeStyle: "short"
+    const datosFiltrados = datosConfirmaciones
+      .filter(d => filtroActivo === "todas" || d.familia === filtroActivo)
+      .filter(d => d.nombre.toLowerCase().includes(textoBusqueda.toLowerCase()));
+
+    const totalPaginas = Math.ceil(datosFiltrados.length / porPagina);
+    const inicio = (paginaActual - 1) * porPagina;
+    const fin = inicio + porPagina;
+    const datosPaginados = datosFiltrados.slice(inicio, fin);
+
+    let index = inicio + 1;
+    datosPaginados.forEach((data) => {
+      const fecha = new Date(data.fecha).toLocaleString("es-MX", {
+        dateStyle: "short",
+        timeStyle: "short"
+      });
+
+      const fila = document.createElement("tr");
+      fila.innerHTML = `
+        <td>${index++}</td>
+        <td>${data.familia}</td>
+        <td>${data.nombre}</td>
+        <td>${data.mensaje || ""}</td>
+        <td>${fecha}</td>
+      `;
+      tablaBody.appendChild(fila);
     });
 
-    const fila = document.createElement("tr");
-    fila.innerHTML = `
-      <td>${index++}</td>
-      <td>${data.familia}</td>
-      <td>${data.nombre}</td>
-      <td>${data.mensaje || ""}</td>
-      <td>${fecha}</td>
-    `;
-    tablaBody.appendChild(fila);
-  });
+    // Contador
+    document.getElementById("contadorConfirmaciones").textContent =
+      `Total de confirmaciones: ${datosFiltrados.length}`;
 
-  // Actualizar contador
-  const contadorDiv = document.getElementById("contadorConfirmaciones");
-  contadorDiv.textContent = `Total de confirmaciones: ${datosFiltrados.length}`;
-}
+    // Paginación
+    renderizarPaginacion(totalPaginas);
+  }
+
+  function renderizarPaginacion(totalPaginas) {
+    const contenedor = document.getElementById("paginacion");
+    contenedor.innerHTML = "";
+
+    if (totalPaginas <= 1) return; // No mostrar si hay solo una página
+
+    // Botón Anterior
+    const btnAnterior = document.createElement("button");
+    btnAnterior.textContent = "Anterior";
+    btnAnterior.disabled = paginaActual === 1;
+    btnAnterior.onclick = () => {
+      paginaActual--;
+      renderizarTabla();
+    };
+    contenedor.appendChild(btnAnterior);
+
+    // Números de página
+    for (let i = 1; i <= totalPaginas; i++) {
+      const btnPagina = document.createElement("button");
+      btnPagina.textContent = i;
+      if (i === paginaActual) btnPagina.classList.add("active");
+      btnPagina.onclick = () => {
+        paginaActual = i;
+        renderizarTabla();
+      };
+      contenedor.appendChild(btnPagina);
+    }
+
+    // Botón Siguiente
+    const btnSiguiente = document.createElement("button");
+    btnSiguiente.textContent = "Siguiente";
+    btnSiguiente.disabled = paginaActual === totalPaginas;
+    btnSiguiente.onclick = () => {
+      paginaActual++;
+      renderizarTabla();
+    };
+    contenedor.appendChild(btnSiguiente);
+  }
 
 
-      // Listener filtro botones
-      document.querySelectorAll(".filtro-btn").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          document
-            .querySelectorAll(".filtro-btn")
-            .forEach((b) => b.classList.remove("active"));
-          e.target.classList.add("active");
-          filtroActivo = e.target.dataset.familia;
+        // Listener filtro botones
+        document.querySelectorAll(".filtro-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            document
+              .querySelectorAll(".filtro-btn")
+              .forEach((b) => b.classList.remove("active"));
+            e.target.classList.add("active");
+            filtroActivo = e.target.dataset.familia;
+            renderizarTabla();
+          });
+        });
+
+        // Listener búsqueda
+        inputBusqueda.addEventListener("input", (e) => {
+          textoBusqueda = e.target.value;
           renderizarTabla();
         });
-      });
 
-      // Listener búsqueda
-      inputBusqueda.addEventListener("input", (e) => {
-        textoBusqueda = e.target.value;
-        renderizarTabla();
-      });
-
-      cargarConfirmaciones();
-    </script>
+        cargarConfirmaciones();
+      </script>
   </body>
 </html>

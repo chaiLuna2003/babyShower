@@ -72,12 +72,42 @@ h2 {
 }
 
 
+#busquedaNombre {
+  padding: 10px 15px;
+  font-size: 1rem;
+  width: 60%;
+  max-width: 400px;
+  border: 2px solid #cbd5e0; /* gris suave */
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#busquedaNombre:focus {
+  border-color: #90cdf4; /* azulito chill */
+  box-shadow: 0 0 0 3px rgba(144, 205, 244, 0.4);
+}
+
+@media (max-width: 600px) {
+  #busquedaNombre {
+    width: 90%;
+  }
+}
+
+
+
 table {
   width: 100%;
   border-collapse: collapse;
   min-width: 600px;
   border-radius: 20px;
   text-align: center;
+}
+
+.contador{
+  margin-top: 40px;
+  margin-bottom: 45px;
 }
 
 thead {
@@ -106,3 +136,32 @@ tbody tr:hover {
     font-size: 10px;
   }
 }
+
+
+.paginacion button {
+  margin: 0 4px;
+  padding: 6px 10px;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.paginacion button:hover:not(:disabled) {
+  background-color: #c0dfff;
+}
+
+.paginacion button.active {
+  background-color: #B6B09F;
+  color: #333;
+}
+
+.paginacion button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
