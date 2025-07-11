@@ -302,7 +302,7 @@ header {
 /*ASISTENCIA SECCION*/
 
 #asistencia {
-  margin: 40px;
+  margin: 20px;
   padding: 20px;
 }
 
@@ -316,14 +316,16 @@ header {
 
 .section-asistencia h1 {
   color: #333;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .section-asistencia p {
   font-size: 20px;
   color: #5a5a5a;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .section-asistencia span {
@@ -336,6 +338,8 @@ header {
   align-items: center;
   gap: 20px;
 }
+
+
 /* Seccion de boton*/
 
 .boton {
