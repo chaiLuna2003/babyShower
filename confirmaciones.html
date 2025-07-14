@@ -6,15 +6,14 @@
     <title>Confirmaciones</title>
     <link rel="icon" href="baby-solid.svg" type="image/x-icon" />
     <link rel="stylesheet" href="confirmaciones.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div class="element-one">
-      <section class="encabezado">
-       
-      </section>
+      <section class="encabezado"></section>
 
       <div class="tabla-container">
-         <div class="content-encabezado">
+        <div class="content-encabezado">
           <h1>Tabla de confirmaciones</h1>
         </div>
 
@@ -51,12 +50,19 @@
         </table>
       </div>
       <div class="grafica">
-
-        <h1>Resultados de votaciones</h1>
-        
+        <h2>Resultados de votaciones</h2>
+        <canvas id="graficaVotos" width="350" height="350"></canvas>
+        <div class="voto-resumen">
+          <p><strong>Total de votos:</strong> <span id="totalVotos">0</span></p>
+          <p><strong>Votos para Niño:</strong> <span id="totalNino">0</span></p>
+          <p><strong>Votos para Niña:</strong> <span id="totalNina">0</span></p>
+        </div>
+        <div id="mensajeGanador" class="mensaje-ganador"></div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import {
@@ -203,7 +209,95 @@
         textoBusqueda = e.target.value;
         renderizarTabla();
       });
+      async function cargarVotosYGraficar() {
+        try {
+          const querySnapshot = await getDocs(collection(db, "votaciones"));
 
+          let conteoNiño = 0;
+          let conteoNiña = 0;
+
+          querySnapshot.forEach((doc) => {
+            const voto = doc.data().voto;
+            if (voto === "Niño") conteoNiño++;
+            if (voto === "Niña") conteoNiña++;
+          });
+
+          const total = conteoNiño + conteoNiña;
+
+          document.getElementById("totalVotos").textContent = total;
+          document.getElementById("totalNino").textContent = conteoNiño;
+          document.getElementById("totalNina").textContent = conteoNiña;
+
+          const mensajeEl = document.getElementById("mensajeGanador");
+
+          if (conteoNiño > conteoNiña) {
+            mensajeEl.textContent = "🎉 ¡Va ganando Niño! 👦";
+            lanzarConfeti();
+          } else if (conteoNiña > conteoNiño) {
+            mensajeEl.textContent = "🎉 ¡Va ganando Niña! 👧";
+            lanzarConfeti();
+          } else if (total > 0) {
+            mensajeEl.textContent = "🤝 ¡Tenemos un empate!";
+          } else {
+            mensajeEl.textContent = "";
+          }
+
+          const ctx = document.getElementById("graficaVotos").getContext("2d");
+
+          new Chart(ctx, {
+            type: "doughnut",
+            data: {
+              labels: ["Niño", "Niña"],
+              datasets: [
+                {
+                  data: [conteoNiño, conteoNiña],
+                  backgroundColor: ["#D1E9F6", "#F3D0D7"],
+                  borderColor: ["#295F98", "#C53030"],
+                  borderWidth: 3,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              cutout: "60%",
+              plugins: {
+                legend: {
+                  position: "bottom",
+                  labels: {
+                    font: {
+                      size: 14,
+                    },
+                    color: "#333",
+                  },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const label = ctx.label || "";
+                      const value = ctx.raw || 0;
+                      const percentage = ((value / total) * 100).toFixed(1);
+                      return `${label}: ${value} voto(s) (${percentage}%)`;
+                    },
+                  },
+                },
+              },
+            },
+          });
+        } catch (error) {
+          console.error("Error al cargar votos:", error);
+          alert("No se pudo cargar la gráfica de votos 😢");
+        }
+      }
+
+      function lanzarConfeti() {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+      }
+
+      cargarVotosYGraficar();
       cargarConfirmaciones();
     </script>
   </body>
