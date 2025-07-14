@@ -232,9 +232,9 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    
     <script src="modal.js"></script>
-    <script src="votacion.js"></script>
+    
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import {
@@ -282,6 +282,20 @@
           alert("Ocurrió un error, intenta de nuevo 😥");
         }
       });
+
+       window.votar = async function(opcion) {
+    try {
+      await addDoc(collection(db, "votaciones"), {
+        voto: opcion,
+        timestamp: new Date()
+      });
+      alert(`¡Votaste por: ${opcion}! 🎉`);
+    } catch (error) {
+      console.error("Error al guardar el voto: ", error);
+      alert("Ocurrió un error al guardar tu voto. 😢");
+    }
+  }
+
     </script>
   </body>
 </html>

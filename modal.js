@@ -33,7 +33,3 @@ const modal = document.getElementById('modalAyuda');
   });
 
 
-function votar(opcion) {
-    alert(`¡Gracias por votar! votaste por: ${opcion} `);
-    
-}
