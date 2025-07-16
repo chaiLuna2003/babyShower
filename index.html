@@ -22,6 +22,10 @@
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     />
 
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
+    />
     <title>Nombre del bebe</title>
   </head>
 
@@ -218,14 +222,23 @@
     </section>
 
     <div class="contenedor-mapa">
-      <div id="map"></div>
-      <div class="detalles-ubicacion">
-        <h1>Detalles de ubicacion</h1>
-        <ul>
-          <li>jjj</li>
-        </ul>
-      </div>
-    </div>
+  <div id="map"></div>
+
+  <div class="detalles-ubicacion">
+    <h1>Detalles de ubicación</h1>
+
+    <p>
+      📍 <strong>C. Norteña 144</strong><br>
+      Benito Juárez, 57000 Cdad. Nezahualcóyotl, Méx.
+    </p>
+
+    <p>
+      Entre calle <span>Caminante</span> y <span>Herradero</span>
+    </p>
+
+    <div id="resumenRuta"></div>
+  </div>
+</div>
 
     <footer class="baby-footer">
       <div class="foter-1">
@@ -246,8 +259,11 @@
         </a>
       </div>
     </footer>
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Luego Routing Machine -->
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
     <script src="modal.js"></script>
 
     <script type="module">
@@ -312,41 +328,74 @@
       };
     </script>
     <script>
-  const map = L.map("map").setView(
-    [19.396679, -98.991189],
-    15
-  );
+      const destino = [19.396679, -98.991189];
 
-  // Mapa modo oscuro
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-    attribution: "&copy; CARTO",
-  }).addTo(map);
+      const map = L.map("map").setView(destino, 15);
 
-  // Ícono personalizado
-  const customIcon = L.icon({
-    iconUrl: "marcador-de-posicion.png",
-    iconSize: [30, 30],
-    iconAnchor: [12, 20],
-  });
+      // Mapa modo oscuro
+      L.tileLayer(
+        "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+        {
+          attribution: "&copy; CARTO",
+        }
+      ).addTo(map);
 
-  // Marcador principal con popup
-  L.marker([19.396679, -98.991189], { icon: customIcon })
+      // Ícono personalizado
+      const customIcon = L.icon({
+        iconUrl: "marcador-de-posicion.png",
+        iconSize: [30, 30],
+        iconAnchor: [12, 20],
+      });
+
+      // Marcador principal con popup
+      L.marker(destino, { icon: customIcon })
+        .addTo(map)
+        .bindPopup("Aquí es mi baby shower <br><small>Att: el bebé 👶</small>")
+        .openPopup();
+
+      // Geolocalización del usuario
+      map.locate({ setView: false, maxZoom: 16, enableHighAccuracy: true });
+
+      map.on("locationfound", function (e) {
+  const origen = e.latlng;
+
+  // Marcar al usuario
+  L.marker(origen)
     .addTo(map)
-    .bindPopup("Aquí es mi baby shower <br><small>Att: el bebé 👶</small>")
+    .bindPopup("¡Estás aquí! 📍")
     .openPopup();
 
-    
+  // Crear y agregar la ruta al mapa
+  const router = L.Routing.control({
+    waypoints: [
+      L.latLng(origen.lat, origen.lng),
+      L.latLng(destino[0], destino[1]),
+    ],
+    routeWhileDragging: false,
+    show: false,
+    language: "es",
+    createMarker: () => null,
+    lineOptions: {
+      styles: [{ color: "#E4E0E1", weight: 2 }],
+    },
+  }).addTo(map);
 
-  // Geolocalización del usuario
-  map.locate({ setView: false, maxZoom: 16 });
+  // ⬅️ Esta parte tiene que ir DENTRO del mismo bloque
+  router.on("routesfound", function (e) {
+    const summary = e.routes[0].summary;
+    const duracionMin = (summary.totalTime / 60).toFixed(1);
+    const distanciaKm = (summary.totalDistance / 1000).toFixed(2);
 
-  map.on("locationfound", function (e) {
-    L.marker(e.latlng)
-      .addTo(map)
-      .bindPopup("¡Estás aquí! 📍")
-      .openPopup();
+    document.getElementById("resumenRuta").innerHTML = `
+       <strong>Estas a ${duracionMin}</strong> 🕒 Minutos del lugar<br>
+       <strong>Estas a ${distanciaKm}</strong>  📏 Kilometros
+    `;
   });
-</script>
+});
 
+      map.on("locationerror", function (e) {
+        alert("No pudimos obtener tu ubicación, te recomendamos, recargar la pagina y dar permisos de localizacion a tu navegador para ver rutas de acceso al lugar del baby shower 😕\n" + e.message);
+      });
+    </script>
   </body>
 </html>
