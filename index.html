@@ -17,6 +17,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
 
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
     <title>Nombre del bebe</title>
   </head>
 
@@ -212,29 +217,39 @@
       </div>
     </section>
 
-    <section id="Ubicación">
-      <h1>Espacio para la API</h1>
-    </section>
+    <div class="contenedor-mapa">
+      <div id="map"></div>
+      <div class="detalles-ubicacion">
+        <h1>Detalles de ubicacion</h1>
+        <ul>
+          <li>jjj</li>
+        </ul>
+      </div>
+    </div>
 
     <footer class="baby-footer">
       <div class="foter-1">
         <a href="https://chailuna2003.github.io/babyShower/confirmaciones.html"
-          >Confirmaciones</a>
+          >Confirmaciones</a
+        >
       </div>
       <div class="foter-2">
         <a href="#">Contacto</a>
       </div>
       <div class="foter-3">
-        <a href="https://www.google.com.mx/maps/place/C.+Norte%C3%B1a+143,+Benito+Ju%C3%A1rez,+57000+Cdad.+Nezahualc%C3%B3yotl,+M%C3%A9x./@19.3965803,-98.9936108,17z/data=!3m1!4b1!4m6!3m5!1s0x85d1e320397b8d9b:0x68c1a35354a06d2d!8m2!3d19.3965753!4d-98.9910305!16s%2Fg%2F11csjq5sy7?hl=es&entry=ttu&g_ep=EgoyMDI1MDcwNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">
-          C. Norteña 143, Benito Juárez, 57000 Cdad. Nezahualcóyotl, Méx.
+        <a
+          href="https://maps.app.goo.gl/UN4van7oQjAWHiwWA"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          C. Norteña 144, Benito Juárez, 57000 Cdad. Nezahualcóyotl, Méx.
         </a>
-
       </div>
     </footer>
 
-    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="modal.js"></script>
-    
+
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import {
@@ -283,19 +298,55 @@
         }
       });
 
-       window.votar = async function(opcion) {
-    try {
-      await addDoc(collection(db, "votaciones"), {
-        voto: opcion,
-        timestamp: new Date()
-      });
-      alert(`¡Votaste por: ${opcion}! 🎉`);
-    } catch (error) {
-      console.error("Error al guardar el voto: ", error);
-      alert("Ocurrió un error al guardar tu voto. 😢");
-    }
-  }
-
+      window.votar = async function (opcion) {
+        try {
+          await addDoc(collection(db, "votaciones"), {
+            voto: opcion,
+            timestamp: new Date(),
+          });
+          alert(`¡Votaste por: ${opcion}! 🎉`);
+        } catch (error) {
+          console.error("Error al guardar el voto: ", error);
+          alert("Ocurrió un error al guardar tu voto. 😢");
+        }
+      };
     </script>
+    <script>
+  const map = L.map("map").setView(
+    [19.396679, -98.991189],
+    15
+  );
+
+  // Mapa modo oscuro
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+    attribution: "&copy; CARTO",
+  }).addTo(map);
+
+  // Ícono personalizado
+  const customIcon = L.icon({
+    iconUrl: "marcador-de-posicion.png",
+    iconSize: [30, 30],
+    iconAnchor: [12, 20],
+  });
+
+  // Marcador principal con popup
+  L.marker([19.396679, -98.991189], { icon: customIcon })
+    .addTo(map)
+    .bindPopup("Aquí es mi baby shower <br><small>Att: el bebé 👶</small>")
+    .openPopup();
+
+    
+
+  // Geolocalización del usuario
+  map.locate({ setView: false, maxZoom: 16 });
+
+  map.on("locationfound", function (e) {
+    L.marker(e.latlng)
+      .addTo(map)
+      .bindPopup("¡Estás aquí! 📍")
+      .openPopup();
+  });
+</script>
+
   </body>
 </html>
