@@ -44,8 +44,8 @@
           <ul>
             <li><a href="#Contenido">Contenido</a></li>
             <li><a href="#asistencia">Asistencia</a></li>
-            <li><a href="#ubicacion">Ubicación</a></li>
             <li><a href="#votacion">Votación</a></li>
+            <li><a href="#ubicacion">Ubicación</a></li>
           </ul>
         </nav>
       </div>
@@ -60,8 +60,9 @@
           <h2>¡Estamos esperando un bebé!</h2>
           <p>
             Estamos emocionados de celebrar la llegada de nuestro nuevo
-            <span> integrante </span> de la familia por lo que aquí encontrarás toda la información
-            necesaria para unirte a nosotros en este día especial.
+            <span> integrante </span> de la familia por lo que aquí encontrarás
+            toda la información necesaria para unirte a nosotros en este día
+            especial.
           </p>
         </div>
       </div>
@@ -76,8 +77,8 @@
         <p>
           Estimado invitado nos tomamos la libertad de hacer una invitacion
           digital por lo que le hacemos llegar un
-          <span>Cronograma de actividades</span> para la celebracion por la llegada de
-          nuestro bebe de manera efectiva y divertida.
+          <span>Cronograma de actividades</span> para la celebracion por la
+          llegada de nuestro bebe de manera efectiva y divertida.
         </p>
       </div>
     </section>
@@ -87,7 +88,8 @@
         <i class="fa-solid fa-gift"></i>
         <h2>Recepción</h2>
         <p>
-          La celebración va a iniciar a las 2:00 PM por lo que se contara con 30 minutos de recepcion 
+          La celebración va a iniciar a las 2:00 PM por lo que se contara con 30
+          minutos de recepcion
         </p>
       </div>
 
@@ -118,10 +120,8 @@
       <div class="section-asistencia">
         <h1>Asistencia</h1>
         <p>
-          Con ayuda de este formulario puedes confirmar tu asistencia para que
-          nosotros podamos saber si asistes a la celebración de
-          <span>Matías Gael</span>. Para más información acerca de cómo llenar
-          tu asistencia, por favor da click al botón.
+          Con ayuda de este formulario puedes confirmar tu asistencia, <span>recomendamos llenar tu confirmación por cada integrante de tu familia. </span>
+Para más información acerca de cómo llenar tu asistencia, por favor da click al botón.
         </p>
 
         <button type="button" class="boton" id="abrirModal">
@@ -134,13 +134,16 @@
             <span class="cerrar" id="cerrarModal">&times;</span>
             <h2>¿Cómo llenar tu asistencia?</h2>
             <p>
-              Selecciona a que familia perteneces
-              <span>(paterna o materna) </span>, escribe los
-              <span> nombres</span> de los invitados que asistirán y un
-              <span> mensaje</span> opcional, como se muestra a continuación:
+              1. Selecciona a qué familia perteneces
+              <span>(paterna o materna)</span>.<br />
+              2. Escribe los <strong>nombres</strong> de los invitados que
+              asistirán, <span>separados por comas</span>.<br />
+              3. El campo de <strong>mensaje</strong> es opcional (puedes dejar
+              una nota si quieres).<br /><br />
+              <em>Ejemplo:</em> Angel Luna, Roberto Sanchez, Audrey Balbuena
             </p>
             <img
-              src="Formulario_exampkle.jpg"
+              src="EjemploFormulario.webp"
               alt="Formulario de asistencia"
               class="imagen-modal"
             />
@@ -171,7 +174,7 @@
             </div>
 
             <div class="form-group">
-              <label for="mensaje">Mensaje:</label>
+              <label for="mensaje">Mensaje (Opcional):</label>
               <textarea
                 id="mensaje"
                 name="mensaje"
@@ -218,24 +221,24 @@
       </div>
     </section>
 
-    <div class="contenedor-mapa">
-  <div id="map"></div>
+    <div class="texto-ubicacion"><h1>Ubicación del evento</h1></div>
 
-  <div class="detalles-ubicacion">
-    <h1>Detalles de ubicación</h1>
+    <div class="contenedor-mapa" id="ubicacion">
+      <div id="map"></div>
 
-    <p>
-      📍 <strong>C. Norteña 144</strong><br>
-      Benito Juárez, 57000 Cdad. Nezahualcóyotl, Méx.
-    </p>
+      <div class="detalles-ubicacion">
+        <h1>Detalles de ubicación</h1>
 
-    <p>
-      Entre calle <span>Caminante</span> y <span>Herradero</span>
-    </p>
+        <p>
+          📍 <strong>C. Norteña 144</strong><br />
+          Benito Juárez, 57000 Cdad. Nezahualcóyotl, Méx.
+        </p>
 
-    <div id="resumenRuta"></div>
-  </div>
-</div>
+        <p>Entre calle <span>Caminante</span> y <span>Herradero</span></p>
+
+        <div id="resumenRuta"></div>
+      </div>
+    </div>
 
     <footer class="baby-footer">
       <div class="foter-1">
@@ -339,7 +342,7 @@
 
       // Ícono personalizado
       const customIcon = L.icon({
-        iconUrl: "marcador-de-posicion.png",
+        iconUrl: "marcador-de-posicion.webp",
         iconSize: [30, 30],
         iconAnchor: [12, 20],
       });
@@ -354,44 +357,44 @@
       map.locate({ setView: false, maxZoom: 16, enableHighAccuracy: true });
 
       map.on("locationfound", function (e) {
-  const origen = e.latlng;
+        const origen = e.latlng;
 
-  // Marcar al usuario
-  L.marker(origen)
-    .addTo(map)
-    .bindPopup("¡Estás aquí! 📍")
-    .openPopup();
+        // Marcar al usuario
+        L.marker(origen).addTo(map).bindPopup("¡Estás aquí! 📍").openPopup();
 
-  // Crear y agregar la ruta al mapa
-  const router = L.Routing.control({
-    waypoints: [
-      L.latLng(origen.lat, origen.lng),
-      L.latLng(destino[0], destino[1]),
-    ],
-    routeWhileDragging: false,
-    show: false,
-    language: "es",
-    createMarker: () => null,
-    lineOptions: {
-      styles: [{ color: "#E4E0E1", weight: 2 }],
-    },
-  }).addTo(map);
+        // Crear y agregar la ruta al mapa
+        const router = L.Routing.control({
+          waypoints: [
+            L.latLng(origen.lat, origen.lng),
+            L.latLng(destino[0], destino[1]),
+          ],
+          routeWhileDragging: false,
+          show: false,
+          language: "es",
+          createMarker: () => null,
+          lineOptions: {
+            styles: [{ color: "#E4E0E1", weight: 2 }],
+          },
+        }).addTo(map);
 
-  // ⬅️ Esta parte tiene que ir DENTRO del mismo bloque
-  router.on("routesfound", function (e) {
-    const summary = e.routes[0].summary;
-    const duracionMin = (summary.totalTime / 60).toFixed(1);
-    const distanciaKm = (summary.totalDistance / 1000).toFixed(2);
+        // ⬅️ Esta parte tiene que ir DENTRO del mismo bloque
+        router.on("routesfound", function (e) {
+          const summary = e.routes[0].summary;
+          const duracionMin = (summary.totalTime / 60).toFixed(1);
+          const distanciaKm = (summary.totalDistance / 1000).toFixed(2);
 
-    document.getElementById("resumenRuta").innerHTML = `
+          document.getElementById("resumenRuta").innerHTML = `
        <strong>Estas a ${duracionMin}</strong> 🕒 Minutos del lugar<br>
        <strong>Estas a ${distanciaKm}</strong>  📏 Kilometros
     `;
-  });
-});
+        });
+      });
 
       map.on("locationerror", function (e) {
-        alert("No pudimos obtener tu ubicación, te recomendamos, recargar la pagina y dar permisos de localizacion a tu navegador para ver rutas de acceso al lugar del baby shower 😕\n" + e.message);
+        alert(
+          "No pudimos obtener tu ubicación, te recomendamos, recargar la pagina y dar permisos de localizacion a tu navegador para ver rutas de acceso al lugar del baby shower 😕\n" +
+            e.message
+        );
       });
     </script>
   </body>

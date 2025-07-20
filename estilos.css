@@ -683,6 +683,11 @@ select:focus {
   color: #00ffa2;
 }
 
+.texto-ubicacion h1{
+  text-align: center;
+  margin: 40px;
+}
+
 /* --- Resumen de ruta --- */
 #resumenRuta {
   margin-top: 10px;
