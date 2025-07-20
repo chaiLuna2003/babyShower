@@ -42,6 +42,7 @@
           </thead>
           <tbody></tbody>
           <div id="contadorConfirmaciones" class="contador"></div>
+          <div id="contadorPersonas" class="contadorPersonas"></div>
           <div
             id="paginacion"
             class="paginacion"
@@ -121,6 +122,18 @@
             d.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
           );
 
+        // Obtener el número total de nombres en todos los campos "nombre"
+        const totalNombres = datosFiltrados.reduce((total, doc) => {
+          const nombres = doc.nombre
+            .split(",") // Separar por comas
+            .map((n) => n.trim()) // Quitar espacios
+            .filter((n) => n !== ""); // Evitar cadenas vacías
+
+          return total + nombres.length;
+        }, 0);
+
+        console.log("Total de nombres:", totalNombres);
+
         const totalPaginas = Math.ceil(datosFiltrados.length / porPagina);
         const inicio = (paginaActual - 1) * porPagina;
         const fin = inicio + porPagina;
@@ -148,6 +161,11 @@
         document.getElementById(
           "contadorConfirmaciones"
         ).textContent = `Total de confirmaciones: ${datosFiltrados.length}`;
+
+        //ContadorPersonas
+        document.getElementById(
+          "contadorPersonas"
+        ).textContent = `Total de confirmaciones: ${totalNombres}`;
 
         // Paginación
         renderizarPaginacion(totalPaginas);
