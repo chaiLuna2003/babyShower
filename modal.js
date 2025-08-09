@@ -35,7 +35,7 @@ const modal = document.getElementById('modalAyuda');
 
   const countdown = () => {
   // Cambia esta fecha al día/hora de tu evento
-  const eventDate = new Date('2025-09-06T14:00:00').getTime();
+  const eventDate = new Date('september 6, 2025 14:00:00').getTime();
   const now = new Date().getTime();
   const gap = eventDate - now;
 
