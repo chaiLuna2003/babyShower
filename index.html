@@ -26,7 +26,7 @@
       rel="stylesheet"
       href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
     />
-    <title>Nombre del bebe</title>
+    <title>Invitación a Baby Shower</title>
   </head>
 
   <body>
@@ -44,7 +44,7 @@
           <ul>
             <li><a href="#Contenido">Contenido</a></li>
             <li><a href="#asistencia">Asistencia</a></li>
-            <li><a href="#votacion">Votación</a></li>
+            <li><a href="#galeria">Galería</a></li>
             <li><a href="#ubicacion">Ubicación</a></li>
           </ul>
         </nav>
@@ -54,7 +54,7 @@
     <section id="descripcion">
       <div class="contenido-descripcion">
         <div class="img-container">
-          <img src="babyIcon2.webp" alt="Ilustración de familia" />
+          <img src="images/fotoportada.png" alt="Ilustración de familia" />
         </div>
         <div class="texto-descripcion">
           <h2>¡Estamos esperando un bebé!</h2>
@@ -69,7 +69,7 @@
     </section>
 
     <div class="texto-uno">
-      <h2>Croograma de evento</h2>
+      <h2>Cronograma de evento</h2>
     </div>
 
     <section id="Contenido">
@@ -78,50 +78,60 @@
           Estimado invitado nos tomamos la libertad de hacer una invitacion
           digital por lo que le hacemos llegar un
           <span>Cronograma de actividades</span> para la celebracion por la
-          llegada de nuestro bebe de manera efectiva y divertida.
+          llegada de nuestro bebe de manera efectiva y divertida, por lo que aquí encontrarás horarios de actividades a lo largo del evento.
         </p>
       </div>
     </section>
 
     <section id="section-uno">
-      <div class="subsection-uno">
-        <i class="fa-solid fa-house"></i>
-        <h2>Recepción</h2>
-        <p>
-          La celebración va a iniciar a las 2:00 PM por lo que se contara con 30
-          minutos de recepciom<br />Tiempo estimado 2:00 PM a 2:30 PM
-        </p>
-      </div>
+  <div class="subsection">
+    <i class="fa-solid fa-house" aria-hidden="true"></i>
+    <h2>Hora de Recepción</h2>
+    <p>
+      La celebración iniciará a las 2:00 p.m., contando con 30 minutos de recepción.
+      <span class="horario">Horario: 2:00 p.m. – 2:30 p.m.</span>
+    </p>
+  </div>
 
-      <div class="subsection-dos">
-        <i class="fa-solid fa-utensils"></i>
-        <h2>Comida</h2>
-        <p>
-          Acompáñanos a compartir una taquiza preparada con esmero, pensada para
-          el disfrute de todos los invitados, la cual contara con un servicio de
-          4:00 PM a 6:00 PM
-        </p>
-      </div>
+  <div class="subsection">
+    <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+    <h2>Tiempo de Comida</h2>
+    <p>
+      Acompáñanos a disfrutar de una taquiza preparada con esmero,
+      disponible de 4:00 p.m. a 6:00 p.m.
+      <span class="horario">Horario: 4:00 p.m. – 6:00 p.m.</span>
+    </p>
+  </div>
 
-      <div class="subsection-tres">
-        <i class="fa-solid fa-candy-cane"></i>
-        <h2>Mesa de dulces</h2>
-        <p>
-          Como parte de la celebración, se contará con una mesa de dulces con
-          variedad de gomitas para disfrutar en un horario de 5:00 PM a 7:00 PM
-        </p>
-      </div>
+  <div class="subsection">
+    <i class="fa-solid fa-universal-access"></i>
+    <h2>Dinamicas / Juegos</h2>
+    <p>
+      Como parte de la celebración, organizamos una serie de dinamicas / juegos
+      <span class="horario">Horario: 3:00 p.m. – 7:00 p.m.</span>
+    </p>
+  </div>
 
-      <div class="subsection-tres">
-        <i class="fa-solid fa-person-walking"></i>
-        <h2>Fin de evento</h2>
-        <p>
-          El evento llegará a su fin a las 8:00 p.m. A partir de ese momento, se
-          contará con un periodo de 30 minutos para desalojar el salón de
-          manera ordenada
-        </p>
-      </div>
-    </section>
+
+  <div class="subsection">
+    <i class="fa-solid fa-candy-cane" aria-hidden="true"></i>
+    <h2>Mesa de Dulces</h2>
+    <p>
+      Como parte de la celebración, tendremos una mesa de dulces con variedad de gomitas.
+      <span class="horario">Horario: 5:00 p.m. – 7:00 p.m.</span>
+    </p>
+  </div>
+
+  <div class="subsection">
+    <i class="fa-solid fa-person-walking" aria-hidden="true"></i>
+    <h2>Hora de Cierre</h2>
+    <p>
+      El evento concluirá a las 7:30 p.m. Contaremos con 30 minutos adicionales
+      para desalojar el salón de forma ordenada.
+      <span class="horario">Horario: 7:00 p.m. – 7:30 p.m.</span>
+    </p>
+  </div>
+</section>
 
     <section id="asistencia">
       <div class="section-asistencia">
@@ -182,7 +192,7 @@
 
             <div class="form-group">
               <label for="nombre">Nombres de invitados</label>
-              <input type="text" id="nombre" name="nombre" required />
+              <input type="text" id="nombre" name="nombre" placeholder="Angel Gabriel, Roberto Sanchez, Amanda Martinez" required />
             </div>
 
             <div class="form-group">
@@ -200,6 +210,19 @@
         </div>
       </div>
     </section>
+
+    <section id="galeria">
+  <h1>Galería</h1>
+  <div class="galeria-content">
+    <figure><img src="images/Imagen1.webp" alt="Foto 1"></figure>
+    <figure><img src="images/Imagen3.webp" alt="Foto 3"></figure>
+    <figure><img src="images/Imagen2.webp" alt="Foto 2"></figure>
+    <figure><img src="images/Imagen4.webp" alt="Foto 4"></figure>
+    <figure><img src="images/Imagen5.webp" alt="Foto 5"></figure>
+    <figure><img src="images/Imagen6.webp" alt="Foto 5"></figure>
+  </div>
+</section>
+
 
     <div class="texto-ubicacion"><h1>Ubicación del evento</h1></div>
 
